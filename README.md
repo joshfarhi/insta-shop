@@ -46,8 +46,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any questions or feedback, please reach out to:
 
 **Joshua Farhi**  
-📧 Email: [joshfarhi12@gmail.com](mailto:joshfarhi12@gmail.com)
-https://www.joshuafarhi.com
+- [joshfarhi12@gmail.com](mailto:joshfarhi12@gmail.com)
+- https://www.joshuafarhi.com
 
 ---
 
