@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import DragAndDrop from "./components/DragAndDrop";
-import { CardDemo } from "../components/ui/CardDemo";
+import { CardDemo } from "./components/CardDemo";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "../components/ui/dialog";
+import { Button } from "../components/ui/button";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
@@ -141,12 +142,12 @@ export default function Home() {
                 );
               })}
             </div>
-            <button
+            <Button
               onClick={generateFields}
               className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
             >
               Generate Fields
-            </button>
+            </Button>
           </div>
         )}
       </main>

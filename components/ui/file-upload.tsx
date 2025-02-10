@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+import Image from "next/image";
 
 const mainVariant = {
   initial: {
@@ -68,7 +69,7 @@ export const FileUpload = ({
               ref={fileInputRef}
               id="file-upload-handle"
               type="file"
-              {...getInputProps()}
+              webkitdirectory="true"
               className="hidden"
             />
             <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
@@ -78,9 +79,9 @@ export const FileUpload = ({
               <p className="relative z-20 font-sans font-bold text-neutral-300 text-base">
                 Click and select your folder or Drag & Drop
               </p>
-                <p className="relative z-20 font-sans font-light text-neutral-500 text-sm mt-2 italic">
+              <p className="relative z-20 font-sans font-light text-neutral-500 text-sm mt-2 italic">
                 Note: The category of the product is determined by the folder name.
-                </p>
+              </p>
               <div className="relative w-full mt-10 max-w-xl mx-auto">
                 {files.length > 0 &&
                   files.map((file, idx) => (
@@ -88,7 +89,8 @@ export const FileUpload = ({
                       key={"file" + idx}
                       layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                       className={cn(
-                        "relative overflow-hidden z-40 bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
+                        "relative overflow-hidden z-40 bg-neutral-900 flex flex-col items-start justify-start p-4 mt-4 w-full mx-auto rounded-md",
+                        "md:h-24",
                         "shadow-sm"
                       )}
                     >
@@ -129,6 +131,15 @@ export const FileUpload = ({
                           modified{" "}
                           {new Date(file.lastModified).toLocaleDateString()}
                         </motion.p>
+                      </div>
+                      <div className="mt-4">
+                        <Image
+                          src="/parcel.png"
+                          alt="Parcel Icon"
+                          width={50}
+                          height={50}
+                          className="object-contain"
+                        />
                       </div>
                     </motion.div>
                   ))}
