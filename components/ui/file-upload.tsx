@@ -76,11 +76,11 @@ export const FileUpload = ({
             </div>
             <div className="flex flex-col items-center justify-center">
               <p className="relative z-20 font-sans font-bold text-neutral-300 text-base">
-                Upload file
+                Click and select your folder or Drag & Drop
               </p>
-              <p className="relative z-20 font-sans font-normal text-neutral-400 text-base mt-2">
-                Drag or drop your files here or click to upload
-              </p>
+                <p className="relative z-20 font-sans font-light text-neutral-500 text-sm mt-2 italic">
+                Note: The category of the product is determined by the folder name.
+                </p>
               <div className="relative w-full mt-10 max-w-xl mx-auto">
                 {files.length > 0 &&
                   files.map((file, idx) => (

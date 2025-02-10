@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import DragAndDrop from "./components/DragAndDrop";
+import { CardDemo } from "../components/ui/CardDemo";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +29,7 @@ export default function Home() {
       .map((file) => {
         const itemName = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
         const fileType = file.type;
-        const fileSize = file.size;
+        const fileSize = (file.size / (1024 * 1024)).toFixed(2); // Convert size to MB
         return `${itemName},${fileType},${fileSize}`;
       })
       .join("\n");
@@ -125,17 +126,20 @@ export default function Home() {
             <p className="text-green-500 flex items-center">
               {files.length} files imported successfully.
             </p>
-            <div className="bg-[#1E1E1E] bg-opacity-50 backdrop-blur-md p-6 rounded-lg shadow-md mt-8">
-              <div className="flex justify-between items-center cursor-pointer">
-                <h2 className="text-lg font-semibold text-[#E0E0E0]">Uploaded Files</h2>
-              </div>
-              <div className="mt-4">
-                <ul className="list-disc list-inside text-[#E0E0E0] mt-4 space-y-2">
-                  {files.map((file, index) => (
-                    <li key={index}>{file.name}</li>
-                  ))}
-                </ul>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 overflow-y-auto max-h-96">
+              {files.map((file, index) => {
+                const itemName = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
+                const fileType = file.type;
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2); // Convert size to MB
+                return (
+                  <CardDemo
+                    key={index}
+                    itemName={itemName}
+                    fileType={fileType}
+                    fileSize={fileSize}
+                  />
+                );
+              })}
             </div>
             <button
               onClick={generateFields}
