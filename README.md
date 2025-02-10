@@ -47,6 +47,7 @@ For any questions or feedback, please reach out to:
 
 **Joshua Farhi**  
 📧 Email: [joshfarhi12@gmail.com](mailto:joshfarhi12@gmail.com)
+https://www.joshuafarhi.com
 
 ---
 
