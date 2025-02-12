@@ -70,6 +70,9 @@ export default function Home() {
         return acc;
       }, {});
       setItemDetails(details);
+      // Set a default selected item if one doesn't exist
+      const firstItemName = files[0]?.name.replace(/\.[^/.]+$/, "");
+      setSelectedItem(details[firstItemName] || null);
       setIsModalOpen(true);
     }, 1000);
   };
@@ -191,81 +194,117 @@ export default function Home() {
         </footer>
 
         {isModalOpen && selectedItem && (
-          <Dialog open={isModalOpen} onOpenChange={closeModal}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Edit Item Details</DialogTitle>
-                <DialogClose />
-              </DialogHeader>
-              <div>
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-[#E0E0E0] mb-2">{selectedItem.itemName}</h3>
-                  <div className="grid grid-cols-1 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-[#E0E0E0]">Price</label>
-                      <input
-                        type="text"
-                        value={selectedItem.price}
-                        onChange={(e) => handleDetailChange(selectedItem.itemName, "price", e.target.value)}
-                        className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#E0E0E0]">Short Description</label>
-                      <input
-                        type="text"
-                        value={selectedItem.shortDescription}
-                        onChange={(e) => handleDetailChange(selectedItem.itemName, "shortDescription", e.target.value)}
-                        className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#E0E0E0]">Quantity</label>
-                      <input
-                        type="text"
-                        value={selectedItem.quantity}
-                        onChange={(e) => handleDetailChange(selectedItem.itemName, "quantity", e.target.value)}
-                        className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#E0E0E0]">Item Name</label>
-                      <input
-                        type="text"
-                        value={selectedItem.itemName}
-                        onChange={(e) => handleDetailChange(selectedItem.itemName, "itemName", e.target.value)}
-                        className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-[#E0E0E0]">SKU</label>
-                      <input
-                        type="text"
-                        value={selectedItem.sku}
-                        readOnly
-                        className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <DialogFooter>
-                <button
-                  onClick={downloadCsv}
-                  className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
-                >
-                  Download CSV
-                </button>
-                <button
-                  onClick={handleRestart}
-                  className="mt-4 px-3 py-1 bg-red-500 text-white rounded shadow hover:bg-red-700"
-                >
-                  Restart
-                </button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        )}
+  <Dialog open={isModalOpen} onOpenChange={closeModal}>
+    <DialogContent className="bg-[#121212] text-[#E0E0E0]">
+      <DialogHeader>
+        <DialogTitle>Edit Item Details</DialogTitle>
+        <DialogClose />
+      </DialogHeader>
+      <div>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-[#E0E0E0] mb-2">
+            {selectedItem.itemName}
+          </h3>
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-[#E0E0E0]">
+                Price
+              </label>
+              <input
+                type="text"
+                value={selectedItem.price}
+                onChange={(e) =>
+                  handleDetailChange(
+                    selectedItem.itemName,
+                    "price",
+                    e.target.value
+                  )
+                }
+                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#E0E0E0]">
+                Short Description
+              </label>
+              <input
+                type="text"
+                value={selectedItem.shortDescription}
+                onChange={(e) =>
+                  handleDetailChange(
+                    selectedItem.itemName,
+                    "shortDescription",
+                    e.target.value
+                  )
+                }
+                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#E0E0E0]">
+                Quantity
+              </label>
+              <input
+                type="text"
+                value={selectedItem.quantity}
+                onChange={(e) =>
+                  handleDetailChange(
+                    selectedItem.itemName,
+                    "quantity",
+                    e.target.value
+                  )
+                }
+                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#E0E0E0]">
+                Item Name
+              </label>
+              <input
+                type="text"
+                value={selectedItem.itemName}
+                onChange={(e) =>
+                  handleDetailChange(
+                    selectedItem.itemName,
+                    "itemName",
+                    e.target.value
+                  )
+                }
+                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#E0E0E0]">
+                SKU
+              </label>
+              <input
+                type="text"
+                value={selectedItem.sku}
+                readOnly
+                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <DialogFooter>
+        <button
+          onClick={downloadCsv}
+          className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
+        >
+          Download CSV
+        </button>
+        <button
+          onClick={handleRestart}
+          className="mt-4 px-3 py-1 bg-red-500 text-white rounded shadow hover:bg-red-700"
+        >
+          Restart
+        </button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+)}
         <ToastViewport />
       </div>
     </ToastProvider>
