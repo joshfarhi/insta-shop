@@ -38,3 +38,4 @@ export function CardDemo({ itemName, fileType, fileSize, index, price = "N/A", o
     </div>
   );
 }
+

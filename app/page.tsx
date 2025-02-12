@@ -155,7 +155,7 @@ export default function Home() {
           {isFileUploadVisible && <DragAndDrop onFilesSelected={handleFiles} />}
           {files.length > 0 && (
             <div className="w-full mt-8">
-              <CollapsibleBox title="Generated Inventory">
+              <CollapsibleBox title="Generated Inventory" onGenerate={generateFields} onClear={clearFiles}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
                   {files.map((file, index) => {
                     const itemName = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
@@ -174,18 +174,6 @@ export default function Home() {
                   })}
                 </div>
               </CollapsibleBox>
-              <Button
-                onClick={generateFields}
-                className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
-              >
-                Edit Product Details
-              </Button>
-              <Button
-                onClick={clearFiles}
-                className="mt-4 px-3 py-1 bg-red-500 text-white rounded shadow hover:bg-red-700"
-              >
-                Clear List
-              </Button>
             </div>
           )}
         </main>
@@ -195,19 +183,19 @@ export default function Home() {
 
         {isModalOpen && selectedItem && (
   <Dialog open={isModalOpen} onOpenChange={closeModal}>
-    <DialogContent className="bg-[#121212] text-[#E0E0E0]">
+    <DialogContent className="bg-[#1F1F1F] text-white">
       <DialogHeader>
-        <DialogTitle>Edit Item Details</DialogTitle>
+        <DialogTitle>Edit {selectedItem.itemName}</DialogTitle>
         <DialogClose />
       </DialogHeader>
       <div>
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-[#E0E0E0] mb-2">
+          <h3 className="text-lg font-semibold text-white mb-2">
             {selectedItem.itemName}
           </h3>
           <div className="grid grid-cols-1 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#E0E0E0]">
+              <label className="block text-sm font-medium text-white">
                 Price
               </label>
               <input
@@ -220,11 +208,11 @@ export default function Home() {
                     e.target.value
                   )
                 }
-                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#E0E0E0]">
+              <label className="block text-sm font-medium text-white">
                 Short Description
               </label>
               <input
@@ -237,11 +225,11 @@ export default function Home() {
                     e.target.value
                   )
                 }
-                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#E0E0E0]">
+              <label className="block text-sm font-medium text-white">
                 Quantity
               </label>
               <input
@@ -254,11 +242,11 @@ export default function Home() {
                     e.target.value
                   )
                 }
-                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#E0E0E0]">
+              <label className="block text-sm font-medium text-white">
                 Item Name
               </label>
               <input
@@ -271,18 +259,19 @@ export default function Home() {
                     e.target.value
                   )
                 }
-                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+                placeholder={selectedItem.itemName}
+                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#E0E0E0]">
+              <label className="block text-sm font-medium text-white">
                 SKU
               </label>
               <input
                 type="text"
                 value={selectedItem.sku}
                 readOnly
-                className="mt-1 p-2 rounded border border-[#BB86FC] bg-[#121212] text-[#E0E0E0] w-full"
+                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
           </div>
@@ -291,7 +280,7 @@ export default function Home() {
       <DialogFooter>
         <button
           onClick={downloadCsv}
-          className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
+          className="mt-4 px-3 py-1 bg-white text-[#1F1F1F] rounded shadow hover:bg-gray-300"
         >
           Download CSV
         </button>
