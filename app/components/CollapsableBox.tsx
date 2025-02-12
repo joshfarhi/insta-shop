@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CollapsibleBoxProps {
   title: string;
@@ -10,32 +10,42 @@ const CollapsibleBox = ({ title, children }: CollapsibleBoxProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
-    <div className="w-full bg-[#1E1E1E] rounded-lg shadow-lg overflow-hidden">
+    <motion.div
+      layout
+      className="max-w-md mx-auto my-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden"
+    >
       <button
         onClick={toggleOpen}
-        className="w-full px-4 py-2 bg-[#BB86FC] text-[#121212] rounded-t-lg shadow hover:bg-[#3700B3] text-left flex justify-between items-center"
+        className="w-full flex justify-between items-center px-4 py-3 bg-blue-400 dark:bg-blue-700 text-gray-800 dark:text-gray-100 hover:bg-blue-500 dark:hover:bg-blue-800 focus:outline-none"
       >
-        <span>{title}</span>
+        <span className="font-medium">{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
+          className="text-xl"
         >
           ▼
         </motion.span>
       </button>
-      <motion.div
-        initial={{ height: 0 }}
-        animate={{ height: isOpen ? "auto" : 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        <div className="p-4">{children}</div>
-      </motion.div>
-    </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="px-4 py-3 text-gray-700 dark:text-gray-300"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

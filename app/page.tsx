@@ -152,7 +152,7 @@ export default function Home() {
           {isFileUploadVisible && <DragAndDrop onFilesSelected={handleFiles} />}
           {files.length > 0 && (
             <div className="w-full mt-8">
-              <CollapsibleBox title="Inventory Cards">
+              <CollapsibleBox title="Generated Inventory">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
                   {files.map((file, index) => {
                     const itemName = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
@@ -175,7 +175,7 @@ export default function Home() {
                 onClick={generateFields}
                 className="mt-4 px-3 py-1 bg-[#BB86FC] text-[#121212] rounded shadow hover:bg-[#3700B3]"
               >
-                Generate Fields
+                Edit Product Details
               </Button>
               <Button
                 onClick={clearFiles}
