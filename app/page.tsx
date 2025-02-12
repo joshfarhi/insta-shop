@@ -155,7 +155,7 @@ export default function Home() {
           {isFileUploadVisible && <DragAndDrop onFilesSelected={handleFiles} />}
           {files.length > 0 && (
             <div className="w-full mt-8">
-              <CollapsibleBox title="Generated Inventory" onGenerate={generateFields} onClear={clearFiles}>
+              <CollapsibleBox title="Generated Inventory" onClear={clearFiles}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
                   {files.map((file, index) => {
                     const itemName = file.name.replace(/\.[^/.]+$/, ""); // Remove file extension
@@ -182,13 +182,13 @@ export default function Home() {
         </footer>
 
         {isModalOpen && selectedItem && (
-  <Dialog open={isModalOpen} onOpenChange={closeModal}>
-    <DialogContent className="bg-[#1F1F1F] text-white">
-      <DialogHeader>
-        <DialogTitle>Edit {selectedItem.itemName}</DialogTitle>
+        <Dialog open={isModalOpen} onOpenChange={closeModal}>
+          <DialogContent className="bg-[#1F1F1F] text-white">
+            <DialogHeader>
+        <DialogTitle>Category Product 1</DialogTitle>
         <DialogClose />
-      </DialogHeader>
-      <div>
+            </DialogHeader>
+            <div>
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-white mb-2">
             {selectedItem.itemName}
@@ -196,104 +196,72 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-sm font-medium text-white">
-                Price
+          Price
               </label>
               <input
-                type="text"
-                value={selectedItem.price}
-                onChange={(e) =>
-                  handleDetailChange(
-                    selectedItem.itemName,
-                    "price",
-                    e.target.value
-                  )
-                }
-                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
+          type="text"
+          value={selectedItem.price}
+          onChange={(e) =>
+            handleDetailChange(
+              selectedItem.itemName,
+              "price",
+              e.target.value
+            )
+          }
+          className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-white">
-                Short Description
+          Short Description
               </label>
               <input
-                type="text"
-                value={selectedItem.shortDescription}
-                onChange={(e) =>
-                  handleDetailChange(
-                    selectedItem.itemName,
-                    "shortDescription",
-                    e.target.value
-                  )
-                }
-                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
+          type="text"
+          value={selectedItem.shortDescription}
+          onChange={(e) =>
+            handleDetailChange(
+              selectedItem.itemName,
+              "shortDescription",
+              e.target.value
+            )
+          }
+          className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-white">
-                Quantity
+          Quantity
               </label>
               <input
-                type="text"
-                value={selectedItem.quantity}
-                onChange={(e) =>
-                  handleDetailChange(
-                    selectedItem.itemName,
-                    "quantity",
-                    e.target.value
-                  )
-                }
-                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-white">
-                Item Name
-              </label>
-              <input
-                type="text"
-                value={selectedItem.itemName}
-                onChange={(e) =>
-                  handleDetailChange(
-                    selectedItem.itemName,
-                    "itemName",
-                    e.target.value
-                  )
-                }
-                placeholder={selectedItem.itemName}
-                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-white">
-                SKU
-              </label>
-              <input
-                type="text"
-                value={selectedItem.sku}
-                readOnly
-                className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
+          type="text"
+          value={selectedItem.quantity}
+          onChange={(e) =>
+            handleDetailChange(
+              selectedItem.itemName,
+              "quantity",
+              e.target.value
+            )
+          }
+          className="mt-1 p-2 rounded border border-white bg-[#1F1F1F] text-white w-full"
               />
             </div>
           </div>
         </div>
-      </div>
-      <DialogFooter>
+            </div>
+            <DialogFooter>
         <button
-          onClick={downloadCsv}
-          className="mt-4 px-3 py-1 bg-white text-[#1F1F1F] rounded shadow hover:bg-gray-300"
+          onClick={() => {
+            setSelectedItem(itemDetails[selectedItem.itemName]);
+            closeModal();
+          }}
+          className="px-3 py-1 bg-green-500 text-white rounded shadow hover:bg-green-600"
         >
-          Download CSV
+          Save Changes
         </button>
-        <button
-          onClick={handleRestart}
-          className="mt-4 px-3 py-1 bg-red-500 text-white rounded shadow hover:bg-red-700"
-        >
-          Restart
-        </button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-)}
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
         <ToastViewport />
       </div>
     </ToastProvider>
